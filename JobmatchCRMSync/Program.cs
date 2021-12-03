@@ -131,13 +131,13 @@ namespace JobmatchCRMSync
                 EntityReference ContactUddRef = new EntityReference("contact", ContactUdd.Id); //TODO - relevant?
                 
                 // Find uddannelsen udfra ID
-                QueryByAttribute qUddannelsesType = new QueryByAttribute("lak_uddannelses_type") //TODO tjek korrekte navne på attributter og entiteter
-                {
-                    ColumnSet = new ColumnSet(new string[] { "lak_name" })
-                };
-                qUddannelsesType.Attributes.Add("lak_modulusid");
-                qUddannelsesType.Values.Add(Uddannelser.UddannelsesID);
-                Entity EntUddannelsesType= service.RetrieveMultiple(qUddannelsesType).Entities.FirstOrDefault();
+                //QueryByAttribute qUddannelsesType = new QueryByAttribute("lak_uddannelses_type") //TODO tjek korrekte navne på attributter og entiteter
+                //{
+                //    ColumnSet = new ColumnSet(new string[] { "lak_name" })
+                //};
+                //qUddannelsesType.Attributes.Add("lak_modulusid");
+                //qUddannelsesType.Values.Add(Uddannelser.UddannelsesID);
+                //Entity EntUddannelsesType= service.RetrieveMultiple(qUddannelsesType).Entities.FirstOrDefault();
 
                 // Har medlemmet denne uddannelse registreret i forvejen?
                 QueryByAttribute qUddannelse = new QueryByAttribute("lak_uddannelse") //TODO tjek korrekte navne på attributter og entiteter
@@ -147,7 +147,7 @@ namespace JobmatchCRMSync
                 qUddannelse.Attributes.Add("lak_modulusid");
                 qUddannelse.Values.Add(Uddannelser.UddannelsesID);
                 qUddannelse.Attributes.Add("lak_modulusid"); // Medlem
-                qUddannelse.Values.Add(ContactUddRef);
+                qUddannelse.Values.Add(ContactUddRef.);
                 Entity EntUddannelse = service.RetrieveMultiple(qUddannelse).Entities.FirstOrDefault();
                 if (service.RetrieveMultiple(qUddannelse).Entities.Count() > 0)
                 {
@@ -158,7 +158,7 @@ namespace JobmatchCRMSync
                 else
                 {
                     Entity EntUdd = new Entity("lak_uddannelse");
-                    EntUdd.Attributes["lak_uddannelse"] = EntUddannelsesType;
+                //    EntUdd.Attributes["lak_uddannelse"] = EntUddannelsesType;
                     EntUdd.Attributes["medlem"] = ContactUddRef;
                     EntUdd.Attributes["Uddybning"] = Uddannelser.Uddybning;
                 }

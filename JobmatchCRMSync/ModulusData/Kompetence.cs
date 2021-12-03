@@ -101,17 +101,17 @@ namespace JobmatchCRMSync.ModulusData
             con.Open();
             using (con)
             {
-                sql = "select mu.uddannelsesnavn, mu.uddannelsesid, mu.uddybning, mu.individ_id from MV_JOBMATCH_MEDLEMMER_UDD mu where rownum >= 10";
+                sql = "select mu.uddannelsesnavn, mu.uddannelsesid, mu.uddybning, mu.individ_id from MV_JOBMATCH_MEDLEMMER_UDD mu where rownum <= 10";
                 OracleCommand cmd = new OracleCommand(sql, con);
                 OracleDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
                     Uddannelse Udd = new Uddannelse
                     {
-                        UddannelseNavn = Convert.ToString(dr["kompetencenavn"]),
-                        UddannelsesID = Convert.ToInt32(dr["kompetenceid"]),
-                        Uddybning = Convert.ToString(dr["erfaring"]),
-                        IndividID = Convert.ToInt32(dr["erfaringnavn"])
+                        UddannelseNavn = Convert.ToString(dr["uddannelsesnavn"]),
+                        UddannelsesID = Convert.ToInt32(dr["uddannelsesid"]),
+                        Uddybning = Convert.ToString(dr["uddybning"]),
+                        IndividID = Convert.ToInt32(dr["individ_id"])
                     };
                     UddannelseList.Add(Udd);
                 }
